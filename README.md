@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # kinesis-sample
 Sample Producer and Consumer for AWS Kinesis Data Streams
 
@@ -34,3 +35,6 @@ The log level is set to 'ALL' for both the handlers but can be changed to the de
 The file 'src/main/resources/commons-logging.properties' defines which logging implementation the commons logging library should use
 
 The src/main/resources/log4j.properties file contains the configuration for for the log4j logger. Currently it is configured to emit logs both to the console and the file "application.log" in the root directory.The log level is set to 'Info' for both the appenders but can be changed to the desired level.
+=======
+# kinesis-sample
+>>>>>>> refs/remotes/origin/master
