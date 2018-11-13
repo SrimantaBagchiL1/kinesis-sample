@@ -1,4 +1,4 @@
-package com.aws.kinesis.sample;
+package com.l1.kinesis.sample;
 /*
  * Copyright 2012-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *

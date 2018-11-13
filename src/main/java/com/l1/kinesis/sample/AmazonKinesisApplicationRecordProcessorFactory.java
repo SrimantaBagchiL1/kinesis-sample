@@ -1,4 +1,4 @@
-package com.aws.kinesis.sample;
+package com.l1.kinesis.sample;
 
 import software.amazon.kinesis.processor.ShardRecordProcessor;
 import software.amazon.kinesis.processor.ShardRecordProcessorFactory;

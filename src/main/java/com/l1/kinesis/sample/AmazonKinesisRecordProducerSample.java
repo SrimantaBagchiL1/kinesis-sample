@@ -1,10 +1,13 @@
-package com.aws.kinesis.sample;
+package com.l1.kinesis.sample;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
+import software.amazon.awssdk.core.adapter.StringToSdkBytesAdapter;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
 import software.amazon.awssdk.services.kinesis.model.CreateStreamRequest;
@@ -17,25 +20,21 @@ import software.amazon.awssdk.services.kinesis.model.PutRecordResponse;
 import software.amazon.awssdk.services.kinesis.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.kinesis.model.StreamDescription;
 import software.amazon.awssdk.services.kinesis.model.StreamStatus;
-import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
-import software.amazon.awssdk.awscore.exception.AwsServiceException;
-import software.amazon.awssdk.core.adapter.StringToSdkBytesAdapter;
 
 public class AmazonKinesisRecordProducerSample {
 
 	/*
-	 * Before running the code: Fill in your AWS access credentials in the
-	 * provided credentials file template, and be sure to move the file to the
-	 * default location (~/.aws/credentials) where the sample code will load the
-	 * credentials from.
-	 * https://console.aws.amazon.com/iam/home?#security_credential
+	 * Before running the code: Fill in your AWS access credentials in the provided
+	 * credentials file template, and be sure to move the file to the default
+	 * location (~/.aws/credentials) where the sample code will load the credentials
+	 * from. https://console.aws.amazon.com/iam/home?#security_credential
 	 *
 	 * WARNING: To avoid accidental leakage of your credentials, DO NOT keep the
 	 * credentials file in your source directory.
 	 */
-	public static final String SAMPLE_APPLICATION_STREAM_NAME = "2.xTest";
+	public static final String SAMPLE_APPLICATION_STREAM_NAME = "TestStreamA";
 
-	private static final Region REGION = Region.US_WEST_2;
+	private static final Region REGION = Region.US_EAST_1;
 
 	private static KinesisAsyncClient kinesis;
 
@@ -43,9 +42,8 @@ public class AmazonKinesisRecordProducerSample {
 
 	private static void init() throws Exception {
 		/*
-		 * The ProfileCredentialsProvider will return your [default] credential
-		 * profile by reading from the credentials file located at
-		 * (~/.aws/credentials).
+		 * The ProfileCredentialsProvider will return your [default] credential profile
+		 * by reading from the credentials file located at (~/.aws/credentials).
 		 */
 		credentialsProvider = DefaultCredentialsProvider.create();
 		try {
@@ -104,7 +102,7 @@ public class AmazonKinesisRecordProducerSample {
 
 		ListStreamsRequest listStreamsRequest = ListStreamsRequest.builder().limit(10).build();
 		ListStreamsResponse listStreamsResult = kinesis.listStreams(listStreamsRequest).get();
-		List<String> streamNames = listStreamsResult.streamNames();
+		List<String> streamNames = new ArrayList<>(listStreamsResult.streamNames());
 		while (listStreamsResult.hasMoreStreams()) {
 			if (streamNames.size() > 0) {
 				listStreamsRequest = ListStreamsRequest.builder().limit(10)

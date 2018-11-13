@@ -1,4 +1,4 @@
-package com.aws.kinesis.sample;
+package com.l1.kinesis.sample;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,11 +33,11 @@ public class AmazonKinesisRecordConsumerSample {
 	 * credentials file in your source directory.
 	 */
 
-	public static final String SAMPLE_APPLICATION_STREAM_NAME = "2.xTest";
+	public static final String SAMPLE_APPLICATION_STREAM_NAME = "TestStreamA";
 
-	private static final String SAMPLE_APPLICATION_NAME = "2.xApplication";
+	private static final String SAMPLE_APPLICATION_NAME = "TestApplicationB";
 
-	private static final Region REGION = Region.US_WEST_2;
+	private static final Region REGION = Region.US_EAST_1;
 
 	private static final Logger log = LoggerFactory.getLogger(AmazonKinesisRecordConsumerSample.class);
 
