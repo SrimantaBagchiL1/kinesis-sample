@@ -17,12 +17,16 @@ package com.l1.kinesis.sample;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
+import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 import software.amazon.kinesis.exceptions.InvalidStateException;
 import software.amazon.kinesis.exceptions.ShutdownException;
 import software.amazon.kinesis.exceptions.ThrottlingException;
@@ -97,11 +101,22 @@ public class AmazonKinesisApplicationSampleRecordProcessor implements ShardRecor
 	 *            The record to be processed.
 	 */
 	private void processSingleRecord(KinesisClientRecord record) {
+
+		DynamoDbAsyncClient ddb = DynamoDbAsyncClient.create();
 		String data = null;
 		try {
 			// For this app, we interpret the payload as UTF-8 chars.
 			data = decoder.decode(record.data()).toString();
-			System.out.println(data);
+			HashMap<String, AttributeValue> item_values =
+					new HashMap<String,AttributeValue>();
+
+			item_values.put("id", AttributeValue.builder().s(data).build());
+			PutItemRequest request = PutItemRequest.builder()
+					.tableName("dev-nova-offers")
+					.item(item_values)
+					.build();
+			System.out.println("The data is" + data);
+			ddb.putItem(request);
 		} catch (NumberFormatException e) {
 			log.info("Record does not match sample record format. Ignoring record with data; " + data);
 		} catch (CharacterCodingException e) {

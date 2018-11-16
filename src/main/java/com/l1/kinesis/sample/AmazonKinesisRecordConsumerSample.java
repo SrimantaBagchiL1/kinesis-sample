@@ -33,9 +33,9 @@ public class AmazonKinesisRecordConsumerSample {
 	 * credentials file in your source directory.
 	 */
 
-	public static final String SAMPLE_APPLICATION_STREAM_NAME = "TestStreamA";
+	public static final String SAMPLE_APPLICATION_STREAM_NAME = "dev-nova-stream";
 
-	private static final String SAMPLE_APPLICATION_NAME = "TestApplicationB";
+	private static final String SAMPLE_APPLICATION_NAME = "dev-nova-stream";
 
 	private static final Region REGION = Region.US_EAST_1;
 
